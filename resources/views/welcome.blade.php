@@ -63,8 +63,8 @@
 <body>
     <div class="container">
         <div class="buttons">
-            <a href="upload" class="upload-button">Upload File</a>
-            <a href="#" class="download-button">Download File</a>
+            <a href="{{ route('upload.file') }}" class="upload-button">Upload File</a>
+            <a href="{{ route('import.file') }}" class="download-button">Download File</a>
         </div>
     </div>
 </body>

@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\FileController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +17,9 @@ Route::get('/', function () {
         return view('welcome');
     })
     ->name('home');
-Route::get('/', [FileController::class, 'index'])->name('files.index');
-Route::post('/upload', [FileController::class, 'upload'])->name('files.upload');
-Route::get('/download/{id}', [FileController::class, 'download'])->name('files.download');
+
+Route::get('/upload', [FileController::class, 'showUploadPage'])->name('uploadPage');
+Route::post('/upload', [FileController::class, 'uploadFile'])->name('upload.file');
+
+Route::get('/import', [FileController::class, 'showImportPage'])->name('importPage');
+Route::post('/import', [FileController::class, 'importFile'])->name('import.file');
