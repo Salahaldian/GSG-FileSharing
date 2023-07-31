@@ -101,15 +101,24 @@ class FileController extends Controller
             ->where('filename', $fileName)
             ->first();
 
+        // if ($checkFile) {
+        //     $filePath = public_path('uploads/' . $checkFile->filename);
+        //     if (file_exists($filePath)) {
+        //         // استخدم دالة route لإنشاء الروابط بدلاً من دالة url
+        //         $downloadUrl = route('download.file', ['filename' => $checkFile->filename]);
+        //         return response()->json(['url' => $downloadUrl]);
+        //     }
+        // }
+        // return response()->json(['url' => null]);
         if ($checkFile) {
             $filePath = public_path('uploads/' . $checkFile->filename);
             if (file_exists($filePath)) {
                 // استخدم دالة route لإنشاء الروابط بدلاً من دالة url
                 $downloadUrl = route('download.file', ['filename' => $checkFile->filename]);
-                return response()->json(['url' => $downloadUrl]);
+                return $downloadUrl;
             }
         }
-        return response()->json(['url' => null]);
+        return ['url' => null];
     }
 
 
@@ -120,7 +129,6 @@ class FileController extends Controller
         if (file_exists($filePath)) {
             return response()->download($filePath, $filename);
         }
-
         // يمكنك تحديد رسالة أخرى هنا إذا لم يتم العثور على الملف
         return redirect()->route('welcome')->with('error', 'File not found or unable to download.');
     }
