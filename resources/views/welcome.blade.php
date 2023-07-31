@@ -8,63 +8,74 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
             margin: 0;
             padding: 0;
+            background-color: #f0f0f0;
         }
 
         .container {
             max-width: 600px;
-            margin: 250px auto;
-            text-align: center;
-            background-color: #fff;
+            margin: 0 auto;
             padding: 20px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            background-color: #fff;
+            border: 1px solid #ccc;
             border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        .buttons {
-            margin-top: 20px;
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
         }
 
-        a {
+        .button-container {
+            text-align: center;
+            margin-top: 30px;
+        }
+
+        .button-container button {
             display: inline-block;
+            margin: 10px;
+            text-decoration: none;
             padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
-            text-decoration: none;
-            margin: 10px;
             border-radius: 5px;
-            transition: background-color 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s ease;
         }
 
-        a:hover {
+        .button-container button:hover {
             background-color: #0056b3;
         }
 
-        .upload-button {
-            background-color: #2ecc71;
+        .button-container a {
+            display: inline-block;
+            margin: 10px;
+            text-decoration: none;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.2s ease;
         }
 
-        .upload-button:hover {
-            background-color: #28b463;
-        }
-
-        .download-button {
-            background-color: #e74c3c;
-        }
-
-        .download-button:hover {
-            background-color: #c0392b;
+        .button-container a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 
 <body>
     <div class="container">
-        <div class="buttons">
-            <a href="{{ route('upload.file') }}" class="upload-button">Upload File</a>
-            <a href="{{ route('import.file') }}" class="download-button">Download File</a>
+        <h1>Welcome to File Management</h1>
+        <div class="button-container">
+            <form action="{{ route('show.file') }}" method="get">
+                <button type="submit">Show All Files to Import</button>
+            </form>
+            <a href="{{ route('upload.file') }}">Upload</a>
+            <a href="{{ route('import.file') }}">Import</a>
         </div>
     </div>
 </body>

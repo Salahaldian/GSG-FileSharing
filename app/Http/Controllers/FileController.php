@@ -11,7 +11,8 @@ class FileController extends Controller
 {
     public function index()
     {
-        return view('welcome');
+        $files = Files::all();
+        return view('AllFileToImport', compact('files'));
     }
 
     public function showUploadPage()
@@ -50,9 +51,9 @@ class FileController extends Controller
 
     public function showImportPage()
     {
-
         return view('importPage');
     }
+
     public function importFile(Request $request)
     {
         $request->validate([
@@ -75,5 +76,54 @@ class FileController extends Controller
         return redirect()->back()->with('error', 'File not found.');
 
     }
+
+    // public function generateImportUrl(Request $request)
+    // {
+    //     $fileName = $request->input('filename');
+    //     $checkFile = Files::query()
+    //         ->where('filename', $fileName)
+    //         ->first();
+
+    //     if ($checkFile) {
+    //         $filePath = public_path('uploads/' . $checkFile->file_name);
+    //         if (file_exists($filePath)) {
+    //             $url = asset('uploads/' . $checkFile->file_name);
+    //             return response()->json(['url' => $url]);
+    //         }
+    //     }
+    //     return response()->json(['url' => null]);
+    // }
+
+    public function generateImportUrl(Request $request)
+    {
+        $fileName = $request->input('file_name');
+        $checkFile = Files::query()
+            ->where('filename', $fileName)
+            ->first();
+
+        if ($checkFile) {
+            $filePath = public_path('uploads/' . $checkFile->filename);
+            if (file_exists($filePath)) {
+                // استخدم دالة route لإنشاء الروابط بدلاً من دالة url
+                $downloadUrl = route('download.file', ['filename' => $checkFile->filename]);
+                return response()->json(['url' => $downloadUrl]);
+            }
+        }
+        return response()->json(['url' => null]);
+    }
+
+
+
+    public function downloadFile($filename)
+    {
+        $filePath = public_path('uploads/' . $filename);
+        if (file_exists($filePath)) {
+            return response()->download($filePath, $filename);
+        }
+
+        // يمكنك تحديد رسالة أخرى هنا إذا لم يتم العثور على الملف
+        return redirect()->route('welcome')->with('error', 'File not found or unable to download.');
+    }
+
 
 }
