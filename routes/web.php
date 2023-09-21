@@ -29,4 +29,4 @@ Route::post('/import', [FileController::class, 'importFile'])->name('import.file
 
 Route::get('/all-files-to-import', [FileController::class, 'index'])->name('show.file');
 Route::get('/generate-import-url', [FileController::class, 'generateImportUrl'])->name('generateImportUrl');
-Route::post('/download-file/{filename}', [FileController::class, 'downloadFile'])->name('download.file');
+Route::get('/download-file/{filename}', [FileController::class, 'downloadFile'])->name('download.file');
