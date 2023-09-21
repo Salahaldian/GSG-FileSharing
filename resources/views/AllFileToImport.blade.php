@@ -63,7 +63,8 @@
     <ul>
         @foreach ($files as $file)
             <li>
-                {{ $file->filename }}
+                {{ $file->filename }} - Number of download #{{ $file->downloads }}
+                <br>
                 <form action="{{ route('import.file') }}" method="post">
                     @csrf
                     <input type="hidden" name="filename" value="{{ $file->filename }}">
@@ -78,7 +79,7 @@
                 </form>
                 <div class="generated-url-container">
                     @if (isset($generatedUrl))
-                        <p>Download URL: <a href="{{ $generatedUrl }}" target="_blank">{{ $generatedUrl }}</a></p>
+                        <a href="{{ $generatedUrl }}" target="_blank">{{ $generatedUrl }}</a>
                     @endif
                 </div>
             </li>
